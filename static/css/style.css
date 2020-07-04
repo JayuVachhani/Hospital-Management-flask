@@ -1,0 +1,228 @@
+html,
+a,
+body {
+    font-family: "Lato", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}   
+
+#background-picture{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)), url('/static/images/reglog.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%; 
+    
+    
+}
+body {  
+    background: url('/static/images/bg.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {    
+    margin: 0;
+    color:lightslategray;
+    font-weight: 700;
+    font-family: "Lato", sans-serif;
+
+}
+
+h1 {
+    font-size: 70px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    color: white;
+    font-size: 30px;
+}
+
+h4 {
+    font-size: 24px;
+}
+
+h5 {
+    
+    font-size: 18px;
+}
+
+h6 {
+    font-size: 16px;
+}
+/*Background image*/
+
+
+.main{
+    margin-top: 30px;
+    text-align: center;
+    
+}
+
+
+
+
+/*Form Styling*/
+.form-bg{
+    background-color: white;
+    border-bottom-style: solid;
+    border-color: yellowgreen;
+    border-radius: 20px;
+}
+.form-control{   
+    border: 1px solid lightslategray;
+    
+}
+.form-style{
+    padding: 30px;
+    margin-top: 15vh;
+    margin-bottom: 30vh;
+    align-self: flex-start;
+}
+.form-in{
+    margin: 15px;
+}
+
+.form-in h2{
+    color: #578BC4;
+}
+.col-form-label{
+    color:lightslategray ;
+    font-weight: 600;
+
+}
+.input-content{
+    margin: 10px;
+}
+.form-in input,select{
+    margin-bottom: 10px;
+    height: 30px;
+}
+.form-in label{
+    color: #578BC4;
+}
+.form-in button{
+    margin: 10px;
+}
+
+.form-in a{
+    margin: 10px;
+    color: #578BC4;
+}
+
+#city,#state,#admitdate{
+    margin-left: -30px;
+}
+
+/*navbar*/
+.navbar{
+    height: 65px;
+}
+
+
+.nav-item a{
+    text-decoration: none; 
+        font-size: 16px; 
+        font-weight: bold; 
+        color: yellowgreen; 
+        position: relative; 
+}
+.nav-item a::before{
+    content: ""; 
+        width: 0px; 
+        height: 5px; 
+        background: yellowgreen; 
+        position: absolute; 
+        top: 100%; 
+        left: 0; 
+        transition: .5s; 
+}
+.nav-item a:hover::before{
+    width: 100%; 
+    
+}
+
+	
+.nav-item{
+    margin-right: 70px;
+}
+
+
+/*patient form*/
+.form-style-patient{
+    background-color:white ;
+    margin-left: 50px;
+    margin-top: 2vh;
+    margin-bottom: 70px;
+    padding: 30px;
+}
+
+/*footer*/
+.footer{
+    color: black;
+    padding: 20px;
+    background-color:white;
+    margin-top: 80px;
+    width: 100%;
+}
+
+.footer h5{
+    margin-bottom: 10px;
+    color:blue;
+    font-weight: bold;
+}
+.footer a{
+    margin-bottom: 10px;
+    color:lightslategray;
+}
+.footer a:hover{
+    color: yellowgreen;
+    text-decoration: none;
+}
+/* Table */
+.table{
+   align-items: center;
+    width: 80%;
+    margin-left: 20vh;
+    margin-top: 50px;
+    background-color: #ffffff;
+}
+.pharmatable{
+    align-items: center;
+     width: 80%;
+     margin-left: 25vh;
+     margin-top: 50px;
+ }
+ .issuebtn{
+    margin-left: 85vh;
+     margin-top: 30px;
+     
+ }
+ .text-center{
+     height: 50px;
+ }
+ .text{
+     font-weight: bold;
+ }
+#add{
+    text-decoration: none;
+    margin-left: 85vh;
+}
+.btn-issue,.btn-test{
+    margin-left: 20vh;
+}
+.btn-update,.btn-delete{
+    margin-left: 90vh;
+}

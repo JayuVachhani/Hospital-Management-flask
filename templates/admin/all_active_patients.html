@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block title %}Admin{% endblock %}
+{% block body %}
+    <div class="main">
+        <h3>All Active Patients</h3>
+    <div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+    <div class="col-md-10">
+        <table class="ui celled table" style="width:100%" id="allpatient">
+            <thead>
+            <tr>
+                <th scope='col'>Patient ID</th>
+                <th scope='col'>SSN ID</th>
+                <th scope='col'>Patient Name</th>
+                <th scope='col'>Age</th>
+                <th scope='col'>Type of Bed</th>
+                <th scope='col'>Patient Status</th>
+                <th scope='col'>Address</th>
+                <th scope='col'>State</th>
+                <th scope='col'>City</th>
+                <th scope='col'>Admit Date</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for patient in data %}
+                <tr>
+                    <td>{{ patient.pid }}</td>
+                    <td>{{ patient.ssnid }}</td>
+                    <td>{{ patient.pname }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.bedtype }}</td>
+                    <td>{{ patient.pstatus }}</td>
+                    <td style="max-width: 200px;">
+                        <div style="overflow-x: hidden;overflow-y:auto;max-height: 50px;">{{ patient.address }}</div>
+                    </td>
+                    <td>{{ patient.state }}</td>
+                    <td>{{ patient.city }}</td>
+                    <td>{{ patient.admitdate }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#allpatient').DataTable();
+        });
+    </script>
+{% endblock %}
+
+
+

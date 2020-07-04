@@ -1,0 +1,234 @@
+{% if session.get('role') == 'admin'   %}
+{% extends 'admin/home.html' %}
+
+{% elif session.get('role') == 'pharmacist'   %}
+{% extends 'pharmacist/home.html' %}
+
+{% elif session.get('role') == 'diagnostic'   %}
+{% extends 'diagnostic/home.html' %}
+
+{% endif %}
+
+{% block body %}
+<div class="main">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="form-bg form-style-patient">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <h2>Search Patient</h2><br />
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <form action="{{url_for('search_patients')}}" method="post">
+                            <div class="form-group row justify-content-center">
+                                <label class="col-md-5 col-form-label">Patient SSN ID</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="number" name="ssnid" id="ssnid" />
+                                </div>
+                            </div>
+                            <p class="lightslategray">OR!</p>
+
+
+                            <div class="form-group row justify-content-center">
+                                <label class="col-md-5 col-form-label">Patient ID</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="number" name="pid" id="pid" />
+                                </div>
+                            </div>
+
+
+                            <br>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-2">
+                                    <input type="submit" class=" btn btn-primary" name="submit" value="Search" />
+
+
+                                </div>
+                                <div class="offset-md-1 col-md-2">
+                                    <input type="button" value="Back" class=" btn btn-warning" onclick="history.back()">
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- admin search -->
+{% if data_all and session.get('role')=='admin' %}
+<div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+    <div class="col-md-10">
+        <table class="ui selectable celled table" style="width:100%;">
+            <thead>
+                <tr class="table-head">
+                    <th>Patient ID</th>
+                    <th>SSN ID</th>
+                    <th>Patient Name</th>
+                    <th>Age</th>
+                    <th>Type of Bed</th>
+                    <th>Patient Status</th>
+                    <th>Address</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Admit Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ data_all.pid }}</td>
+                    <td>{{ data_all.ssnid }}</td>
+                    <td>{{ data_all.pname }}</td>
+                    <td>{{ data_all.age }}</td>
+                    <td>{{ data_all.bedtype }}</td>
+                    <td>{{ data_all.pstatus }}</td>
+                    <td>
+                        <div style="overflow-x: hidden;overflow-y:auto;height: 50px;">{{ data_all.address }}</div>
+                    </td>
+                    <td>{{ data_all.state }}</td>
+                    <td>{{ data_all.city }}</td>
+                    <td>{{ data_all.admitdate }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row justify-content-center row-button">
+    <div class="offset-md-1 col-md-2">
+        <form action="/admin/update" method="POST">
+            <input type="hidden" value="{{ data_all.pid }}" name="pid" />
+
+            <button name="submit" class=" btn btn-primary" value="update_patient" type="submit">Update
+                Patient
+            </button>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <form action="/admin/delete" method="POST" onsubmit="return confirm('Confirm Patient Delete?!')">
+            <input type="hidden" value="{{ data_all.pid }}" name="pid" />
+
+            <button name="submit" class=" btn btn-primary" value="delete_patient" type="submit">Delete
+                Patient
+            </button>
+        </form>
+    </div>
+
+    {% if data_all.pstatus=='active' %}
+    <form action="/admin/billings" method="POST">
+        <input type="hidden" value="{{data_all.pid}}" name="pid" />
+        <div class="col-md-12">
+            <button name="submit" class=" btn btn-primary" value="bill_patient" type="submit">Check Patient
+                Billings</a></button>
+            </button>
+        </div>
+    </form>
+    <br>
+    <br>
+    {% else %}
+    <div class="text-warning">
+    <p>No outstanding bills are available since patient is aleady Dischaged!</p>
+</div>
+    {% endif %}
+</div>
+
+{% endif %}
+
+
+<!-- pharmacist search -->
+{% if data_active and (session.get('role')=='pharmacist' or session.get('role')=='diagnostic') %}
+<div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+    <div class="col-md-10">
+        <table class="ui selectable celled table" style="width:100%;">
+            <tr>
+                <th>Patient ID</th>
+                <th>SSN ID</th>
+                <th>Patient Name</th>
+                <th>Age</th>
+                <th>Type of Bed</th>
+                <th>Patient Status</th>
+                <th>Address</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Admit Date</th>
+            </tr>
+
+            <tbody>
+                <tr>
+                    <td>{{ data_active.pid }}</td>
+                    <td>{{ data_active.ssnid }}</td>
+                    <td>{{ data_active.pname }}</td>
+                    <td>{{ data_active.age }}</td>
+                    <td>{{ data_active.bedtype }}</td>
+                    <td>{{ data_active.pstatus }}</td>
+                    <td>
+                        <div style="overflow-x: hidden;overflow-y:auto;height: 75px;">{{ data_active.address }}
+                        </div>
+                    </td>
+                    <td>{{ data_active.state }}</td>
+                    <td>{{ data_active.city }}</td>
+                    <td>{{ data_active.admitdate }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endif %}
+{% if data_active and session.get('role')=='pharmacist' %}
+<form action="{{ url_for('issuemed_search') }}" method="POST">
+    <input type="hidden" value="{{ data_active.pid }}" name="pid" />
+    <input type="hidden" value="{{ data_active.pname }}" name="pname" />
+    <div class="row-button row justify-content-center">
+        <div class="col-md-3">
+            <button class="btn btn-primary" name="submit" value="issuemed_search" type="submit">Issue New
+                Medicine to Patient</button>
+        </div>
+    </div>
+</form>
+{% endif %}
+{% if data_active and session.get('role')=='diagnostic' %}
+<form action="{{ url_for('issuetest_search') }}" method="POST">
+    <input type="hidden" value="{{ data_active.pid }}" name="pid" />
+    <input type="hidden" value="{{ data_active.pname }}" name="pname" />
+
+    <div class="row-button row justify-content-center">
+        <div class="col-md-3">
+            <button class="btn btn-primary" name="submit" value="issuetest_search" type="submit">Add Diagnostic Tests
+                for Patient</a></button>
+        </div>
+    </div>
+
+</form>
+{% endif %}
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#ssnid').blur(function () {
+            if ($(this).val().length != 0) {
+                $('#pid').attr('disabled', true);
+            } else {
+                $('#pid').attr('disabled', false);
+            }
+        });
+        $('#pid').blur(function () {
+            if ($(this).val().length != 0) {
+                $('#ssnid').attr('disabled', true);
+            } else {
+                $('#ssnid').attr('disabled', false);
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        window.history.replaceState("", "", window.location.href);
+    });
+</script>
+
+{% endblock %}

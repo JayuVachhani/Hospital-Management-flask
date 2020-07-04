@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login</title>
+
+    <!--CSS Styling-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="{{url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet">
+
+
+
+</head>
+
+<body id="background-picture">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                {% include 'flashmess.html' %}
+                <div class="form-bg form-style">                    
+                    <div class="row justify-content-center form-in">
+                        <h2>Login</h2>
+                    </div>
+                    <div class="row justify-content-center form-in">
+                        <form action="{{url_for('login')}}" method="post">
+                            <div class="col-md-11 offset-md-1">
+                                <label>Username</label>
+                                <input name="username" class="form-control" required type="text">
+                            </div>
+                            <div class="col-md-11 offset-md-1">
+                                <label>Password</label>
+                                <input name="password" class="form-control" required type="password">
+                            </div>
+                            <br>
+                              
+                            <div class="row ">
+                                <div class="col-md-10 offset-md-1">
+                                    <button class="btn btn-primary btn-block" name="submit" type="submit">Login</button>
+                                </div>
+                            </div>
+                            <br> 
+                            <div class="col-12 offset-md-1">
+                                <a href="{{url_for('register')}}">Not registered? Register here</a>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block title %}Admin{% endblock %}
+{% block body %}
+
+
+
+<section class="mission_area">
+    <div class="row m0">
+        <div class="col-lg-6">
+            <div class="left_img"><img style="margin-left:100px ;" src="{{url_for('static', filename='images/admin1.jpg')}}" alt="admin1"></div>
+        </div>
+        <div class="col-lg">
+            <div class="item justify-content-center" style="padding: 50px;">
+                <div class="mission_text">
+                    <h3>Responsibility</h3>
+                    <p class="text-white">Supervising daily administrative operations<br>
+                        Monitoring expenses and suggesting cost-effective solutions<br>
+                        Creating quarterly and annual budgets<br>
+                        Develop and implement effective policies for all operational procedures<br>
+                        Prepare work schedules<br>
+                        Maintain organized medical and employee records
+
+                </div>
+                <div class="mission_text">
+                    <h3>About Our Mission</h3>
+                    <p class="text-white">Hospital administrators oversee the organizational side of health services.
+                        Either working in a team or independently, they make sure a medical facility is employing
+                        effective and efficient practices that deliver the best care possible. What a doctor is to a
+                        patient, a hospital administrator is to a medical facility. And keeping a large organization
+                        healthy requires a robust and multidimensional skillset.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<!--================End Mission Area =================-->
+
+<!--================Success Area =================-->
+<section class="success_area" style="margin-bottom: 100px;">
+    <div class="row m0">
+        <div class="col-lg-6">
+            <div class="mission_text justify-content-center" style="padding: 50px;">
+                <h3>Managing Patient Records</h3>
+                <p class="text-white">A large part of the hospital administrator's job concerns managing patient
+                    records. The administrator must make sure that medical histories, current health information, and
+                    billing, insurance and legal documents are all being handled appropriately. Keeping all of this
+                    information organized and up to date is an essential role that a hospital administrator must
+                    fill.<br></p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="success_img">
+                <img src="{{url_for('static', filename='images/admin2.png')}}" alt="pharma2">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row m0 right_dir">
+        <div class="col-lg-6 p0">
+            <div class="success_img">
+                <img src="{{url_for('static', filename='images/admin3.png')}}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-6 p0">
+            <div class="mission_text justify-content-center" style="padding: 50px;">
+                <h3>Type of Pharmacists</h3>
+                <p class="text-white">There are three main areas a pharmacist can work in: you can be a hospital
+                    pharmacist, retail or community pharmacist, or industrial pharmacist.
+                    <br>
+                    <strong>Hospital pharmacists </strong> work closely with doctors and are responsible for the
+                    ordering, quality testing, storing and security of drugs and medicines in hospitals. They must also
+                    ensure an adequate supply of medicine.
+                    <br>
+                    <strong>Retail or community pharmacists</strong> supply prescribed and over-the-counter medicines to
+                    the general public in a retail pharmacy (such as a local chemist), and give advice to customers on
+                    the safe use of medicines and possible side effects.
+                    <br>
+                    <strong>Industrial pharmacists </strong>
+                    work in pharmaceutical companies where they help to discover safe and effective new drugs, develop
+                    them into effective medicines, and market the finished product to customers.<br></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

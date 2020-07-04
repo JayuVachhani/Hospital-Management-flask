@@ -1,0 +1,200 @@
+{% extends 'layout.html' %}
+{% block title %}pharmacist{% endblock %}
+{% block body %}
+
+
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th colspan="5" class="text-center">Patient Details</th>
+    </tr>
+      <tr>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Age</th>
+            <th>Type of Bed</th>
+            <th>Admit Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{patient_data.pid}}</td>
+            <td>{{patient_data.pname}}</td>
+            <td>{{patient_data.age}}</td>
+            <td>{{patient_data.bedtype}}</td>
+            <td>{{patient_data.admitdate}}</td>
+        </tr>
+    </tbody>
+
+</table>
+<br>
+  <!-- Displays All Medecines Currently issued to Specific Patient if any -->
+    {% if data_medissue %}
+        
+        <div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+            <div class="col-md-10">
+                <table class="ui celled table" style="width:100%;" id="issuemedicine">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th colspan="5" class="text-center">Medicines Issued to Patient</th>
+                      </tr>
+                        <th>Medicine ID</th>
+                        <th>Medicine Name</th>
+                        <th>Current Quantity</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in data_medissue %}
+                        <tr>
+                            <th>{{ data.medid }}</th>
+                            <th>{{ data.medname }}</th>
+                            <th>{{ data.quantity }}</th>
+                            <th>{{ data.rate }}</th>
+                            <th>{{ data.amount }}</th>
+                            
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    {% else %}
+    
+      <h3 class="text-center">No Issued medicines records found!</h3>
+    
+    {% endif %}
+
+    <!-- end show issued medicine -->
+
+    <!-- show available medicines in the inventory from which pharmacist can issue meds
+       to patient if inventory not empty -->
+       <br>
+       <div class="main">
+         
+         <div class="row justify-content-center">
+           <div class="col-md-7">
+             <h3>Issue new Medicine, Use Medicine Available table to search and issue Medicines.</h3>
+       
+    {% if data_allmed %}
+
+    <form action="/pharmacist/issuemedicine" class="text-white" method="post" onsubmit="return issuevalidation()" id="issuenewmedform" style="display: none;">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-bg form-style-patient">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <h2>Issue Medicine</h2><br />
+              </div>
+            </div>
+  
+    <input type="hidden" name="pid" value="{{patient_data.pid}}"/>
+    <input type="hidden" name="pname" value="{{patient_data.pname}}"/>
+    
+    <div class="form-group row justify-content-center">
+      <label class="col-md-5 col-form-label">Enter Medicine Name</label>
+      <div class="col-md-6">
+        <input class="form-control"  name="medname" id="medname" required readonly type="text" />
+        <span class="text-danger font-weight-bold" id="mednamespan"></span>
+      </div>
+    </div>
+
+    <div class="form-group row justify-content-center">
+      <label class="col-md-5 col-form-label">Quantity</label>
+      <div class="col-md-6">
+        <input class="form-control" min="0" name="quantity" id="quantity" required type="number" />
+        <span class="text-danger font-weight-bold" id="quantityspan"></span>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" name="submit" type="submit" value="issuemed_add">Confirm Add!</button>
+    <button class="btn btn-warning" type="reset" value="Reset">Reset</button>
+  </div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+        <div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+            <div class="col-md-10">
+                <table class="ui celled table" style="width:100%;" id="allmedicine">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="5">Available Medicines in Pharmacy</th>
+                    </tr>
+                    <tr>
+                        <th>Medicine ID</th>
+                        <th>Medicine Name</th>
+                        <th>Current Quantity</th>
+                        <th>Rate</th>
+                        <th>action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in data_allmed %}
+                        <tr>
+                            <td>{{ data.medid }}</td>
+                            <td>{{ data.medname }}</td>
+                            <td>{{ data.quantity }}</td>
+                            <td>{{ data.rate }}</td>
+                            <td>
+                              <button id="{{ data.medid }}" value="{{ data.medname }}" class="addmedbtn btn btn-warning">
+                                  Issue this medicine
+                              </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br/>
+
+        <button class="btn btn-primary" id="add" name="resupply">
+          <a class="text-white"  href="{{url_for('resupply_medicines')}}">Add/Resupply Medicines</a>
+        </button>
+
+    {% else %}
+
+    <div class="text-danger text-center">
+      <p>Sorry can't issue! No Medicine Available in the Stock/Inventory! Add new Medicine</p>
+      </div>  
+    
+
+      <button class="btn-primary" id="add" name="resupply">
+        <a class="text-white" href="{{url_for('resupply_medicines')}}">Add/Resupply Medicines</a>
+      </button>
+
+    {% endif %}
+
+    <input class="btn btn-warning" type="button" value="Back" onclick="history.back()" />
+
+
+
+<!-- ============================= JS validataion=================== -->
+<script>
+  $(document).ready(function () {
+    window.history.replaceState("", "", window.location.href);
+  });
+</script>
+<script>
+  $(document).ready(function () {
+      $(".addmedbtn").click(function () {
+          $("#issuenewmedform").show();
+          $("#issuenewmedform").focus();
+          $("#medname").val($(this).val());
+      });
+  });
+</script>
+    <script>
+        $(document).ready(function () {
+            $('#allmedicine').DataTable();
+            $('#issuemedicine').DataTable();
+        });
+    </script>
+
+{% endblock %}

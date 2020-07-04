@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block title %}pharmacist{% endblock %}
+{% block body %}
+
+
+
+<section class="mission_area">
+    <div class="row m0">
+        <div class="col-lg-5">
+            <div class="left_img"><img src="{{url_for('static', filename='images/pharma1.jpg')}}" alt=""></div>
+        </div>
+        <div class="col-lg">
+            <div class="item justify-content-center" style="padding: 50px;">
+                <div class="mission_text">
+                    <h3>Road to Success</h3>
+                    <p class="text-white">Pharmacists are healthcare professionals responsible for supplying medicines
+                        in the most economical and effective way possible. It is an applied medical science. Pharmacists
+                        constantly monitor the quality, safety and the use of medicines, requiring a high level of
+                        involvement and interaction with patients.
+
+                </div>
+                <div class="mission_text">
+                    <h3>About Our Mission</h3>
+                    <p class="text-white">provider is certain of the condition present, further medical tests, such as
+                        medical imaging, are performed or scheduled in part to confirm or disprove the diagnosis but
+                        also to document the patient's status and keep the patient's medical history up to date.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Mission Area =================-->
+
+<!--================Success Area =================-->
+<section class="success_area" style="margin-bottom: 100px;">
+    <div class="row m0">
+        <div class="col-lg-6">
+            <div class="mission_text justify-content-center" style="padding: 50px;">
+                <h3>Pharmacist Responsibilities:</h3>
+                <p class="text-white">Compounding and dispensing medications, as prescribed by physicians.
+                    Monitoring customers’ drug therapies, advising interventions, and informing customers of any
+                    potential side effects.
+                    Instructing customers on how and when to take prescribed medications.
+                    Conducting health and wellness screenings.
+                    Providing immunizations, and other medical services, such as taking blood pressure, temperature
+                    measurements, and checking blood sugar levels.<br></p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="success_img">
+                <img src="{{url_for('static', filename='images/pharma2.jpg')}}" alt="pharma2">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row m0 right_dir">
+        <div class="col-lg-6 p0">
+            <div class="success_img">
+                <img src="{{url_for('static', filename='images/pharma3.jpg')}}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-6 p0">
+            <div class="mission_text justify-content-center" style="padding: 50px;">
+                <h3>Type of Pharmacists</h3>
+                <p class="text-white">There are three main areas a pharmacist can work in: you can be a hospital
+                    pharmacist, retail or community pharmacist, or industrial pharmacist.
+                    <br>
+                    <strong>Hospital pharmacists </strong> work closely with doctors and are responsible for the
+                    ordering, quality testing, storing and security of drugs and medicines in hospitals. They must also
+                    ensure an adequate supply of medicine.
+                    <br>
+                    <strong>Retail or community pharmacists</strong> supply prescribed and over-the-counter medicines to
+                    the general public in a retail pharmacy (such as a local chemist), and give advice to customers on
+                    the safe use of medicines and possible side effects.
+                    <br>
+                    <strong>Industrial pharmacists </strong>
+                    work in pharmaceutical companies where they help to discover safe and effective new drugs, develop
+                    them into effective medicines, and market the finished product to customers.<br></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

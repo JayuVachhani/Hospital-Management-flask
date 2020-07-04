@@ -1,0 +1,188 @@
+{% extends 'layout.html' %}
+{% block title %}pharmacist{% endblock %}
+{% block body %}
+
+    <div class="main">
+    <div class="row-button">
+        <button class="btn btn-primary" id="badd">Add new Medicine</button>
+    </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form action="/pharmacist/resupply" method="post" class="text-white" onsubmit="return addvalidation()"
+                      id="addform" style="display: none;">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="form-bg form-style-patient">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <h2>Resupply Medicine</h2><br/>
+                                    </div>
+                                </div>
+                                <div class="form-group row justify-content-center">
+                                    <label class="col-md-3 col-form-label"> Medicine ID</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" name="addmedid" id="addmedid" required
+                                               type="number"/>
+                                        <span class="text-danger font-weight-bold" id="addmedidspan"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row justify-content-center">
+                                    <label class="col-md-3 col-form-label"> Medicine Name</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" name="addmedname" id="addmedname" required
+                                               type="text"/>
+                                        <span class="text-danger font-weight-bold" id="addmednamespan"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row justify-content-center">
+                                    <label class="col-md-3 col-form-label"> Quantity</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" min="0" max="10000" name="addquantity"
+                                               id="addquantity" required type="number"/>
+                                        <span class="text-danger font-weight-bold" id="addquantityspan"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row justify-content-center">
+                                    <label class="col-md-3 col-form-label"> Rate</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" name="addrate" id="addrate" required type="number"
+                                               min="0"
+                                               step="0.0001"/>
+                                        <span class="text-danger font-weight-bold" id="addratespan"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row row-button justify-content-center">
+                                    <div class="col-md-10">
+                                        <button class=" col-md-3 btn btn-primary" name="submit" type="submit" value="add">Confirm Add!</button>
+                                        <button class="offset-md-1 col-md-2 btn btn-warning" type="reset" value="Reset">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="main">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form action="/pharmacist/resupply" class="text-white" method="post"
+                      onsubmit="return updatevalidation()"
+                      id="updateform" style="display: none;">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="form-bg form-style-patient">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <h2>Update Quantity</h2><br>
+                                    </div>
+                                </div>
+                                <div class="form-group row justify-content-center">
+                                    <label class="col-md-3 col-form-label"> Medicine ID</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" name="updatemedid" id="updatemedid" readonly
+                                               type="number"/>
+                                        <span class="text-danger font-weight-bold" id="updatemedidspan"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row justify-content-center">
+                                    <label class="col-md-3 col-form-label"> Quantity</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" min="0" max="10000" name="updatequantity"
+                                               id="updatequantity" required
+                                               type="number"/>
+                                        <span class="text-danger font-weight-bold" id="updatequantityspan"></span>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <button class="btn btn-primary" type="submit" name="submit" value="update">Update
+                                    </button>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {% if med_data %}
+        <div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+            <div class="col-md-10">
+                <table class="ui selectable celled table" style="width:100%;" id="allmedicine">
+                    <thead>
+                    <tr style="text-align: center;">
+                        <th>Medicine ID</th>
+                        <th>Medicine Name</th>
+                        <th>Current Quantity</th>
+                        <th>Rate</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in med_data %}
+                        <tr style="text-align: center;">
+                            <th>{{ data.medid }}</th>
+                            <th>{{ data.medname }}</th>
+                            <th>{{ data.quantity }}</th>
+                            <th>{{ data.rate }}</th>
+                            <th>
+                                <button id="{{ data.medid }}" value="{{ data.medid }}" class="updbtn btn btn-warning">
+                                    Add Quantity
+                                </button>
+                            </th>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                 
+                </table>
+            </div>
+        </div>
+    {% else %}
+    <div class="text-center text-danger">
+        <p>No Medicine Available in the Inventory! Add new Medicine</p>
+      </div>
+    {% endif %}
+
+
+
+    <!-- <input class="form-control" type="button" value="Back" onclick="history.back()" /> -->
+
+    <script>
+        $(document).ready(function () {
+            window.history.replaceState("", "", window.location.href);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#badd").click(function () {
+                $("#addform").show();
+                $("#updateform").hide();
+            });
+            $(".updbtn").click(function () {
+                $("#addform").hide();
+                $("#updateform").show();
+                $("#updatemedid").val($(this).val());
+            });
+        });
+    </script>
+     <script>
+        $(document).ready(function () {
+            $('#allmedicine').DataTable();
+        });
+
+    </script>
+
+
+{% endblock %}

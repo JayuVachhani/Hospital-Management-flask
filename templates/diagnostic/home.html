@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% block title %}Diagnostic{% endblock %}
+{% block body %}
+
+<section class="mission_area">
+    <div class="row m0">
+        <div class="col-lg-6">
+            <div class="left_img"><img src="{{url_for('static', filename='images/dia1.jpg')}}" alt="diagnostic image">
+            </div>
+        </div>
+        <div class="col-lg">
+            <div class="item justify-content-center" style="padding: 50px;">
+                <div class="mission_text">
+                    <h3>Road to Success</h3>
+                    <p class="text-white"> Medical diagnosis or the actual process of making a diagnosis is a cognitive
+                        process. A clinician uses several sources of data and puts the pieces of the puzzle together to
+                        make a diagnostic impression. The initial diagnostic impression can be a broad term describing a
+                        category of diseases instead of a specific disease or condition.<br></p>
+
+                </div>
+                <div class="mission_text">
+                    <h3>About Our Mission</h3>
+                    <p class="text-white">provider is certain of the condition present, further medical tests, such as
+                        medical imaging, are performed or scheduled in part to confirm or disprove the diagnosis but
+                        also to document the patient's status and keep the patient's medical history up to date.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Mission Area =================-->
+
+<!--================Success Area =================-->
+<section class="success_area" style="margin-bottom: 100px;">
+    <div class="row m0">
+        <div class="col-lg-6">
+            <div class="mission_text justify-content-center" style="padding: 50px;">
+                <h3>Medical uses</h3>
+                <p class="text-white">A diagnosis, in the sense of diagnostic procedure, can be regarded as an attempt
+                    at classification of an individual's condition into separate and distinct categories that allow
+                    medical decisions about treatment and prognosis to be made. Subsequently, a diagnostic opinion is
+                    often described in terms of a disease or other condition.<br></p>
+            </div>
+        </div>
+        <br>
+        <div class="col-lg-6">
+            <div class="success_img">
+                <img src="{{url_for('static', filename='images/dia2.jpg')}}" alt="diagnostic image">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row m0 right_dir">
+        <div class="col-lg-6 p0">
+            <div class="success_img">
+                <img src="{{url_for('static', filename='images/dia3.jpg')}}" alt="diagnostic image">
+            </div>
+        </div>
+        <div class="col-lg-6 p0">
+            <div class="mission_text justify-content-center" style="padding: 50px;">
+                <h3>Medical diagnosis</h3>
+                <p class="text-white">Medical diagnosis (abbreviated Dx[1] or DS) is the process of determining which
+                    disease or condition explains a person's symptoms and signs. It is most often referred to as
+                    diagnosis with the medical context being implicit. The information required for diagnosis is
+                    typically collected from a history and physical examination of the person seeking medical care.
+                    Often, one or more diagnostic procedures, such as medical tests, are also done during the process.
+                    Sometimes posthumous diagnosis is considered a kind of medical diagnosis<br></p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

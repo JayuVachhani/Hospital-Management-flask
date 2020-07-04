@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Register</title>
+
+    <!--CSS Styling-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="{{url_for('static', filename='css/style.css')}}" type="text/css" rel="stylesheet">
+    <!-- external js -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</head>
+
+<body id="background-picture">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                {% include "flashmess.html" %}
+                <div class="form-bg form-style">
+                    <div class="row justify-content-center form-in">
+                        <h2>Register</h2>
+                    </div>
+                    <div class="row justify-content-center form-in">
+                        <form action="/register" method="post" onsubmit="return validationn()">
+                            <div class="col-md-11 offset-md-1">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="username" id="username" required minlength="6" maxlength="25">
+                            </div>
+                            <div class="col-md-11 offset-md-1">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="password" id="password" minlength="8" maxlength="15"
+                                    required>
+                            </div>
+                            <div class="col-md-11 offset-md-1">
+                                <label>Role</label>
+                                <select name="role" class="form-control" required>
+                                    <option value="" selected disabled>Select-Role</option>
+                                    <option value="admin">Desk Executive</option>
+                                    <option value="pharmacist">Pharmacist</option>
+                                    <option value="diagnostic">Diagnostics Executive</option>
+                                </select>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-10 offset-md-1">
+                                    <button class="btn btn-primary btn-block" name="submit" type="submit">Register</button>
+                                </div>
+                            </div>
+                            <div class="col-12 offset-md-1">
+                                <a href="{{url_for('login')}}">Already registered? Login here</a>
+                            </div>
+                        </form>
+                    </div>
+                    <span class="text-danger" id="usernamespan"></span><br>
+                    <span class="text-danger" id="passwordspan"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script crossorigin="anonymous" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+</body>
+
+
+<script>
+    $(document).ready(function () {
+        window.history.replaceState("", "", window.location.href);
+    });
+</script>
+
+</html>

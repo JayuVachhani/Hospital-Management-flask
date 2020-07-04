@@ -1,0 +1,210 @@
+{% extends 'admin/home.html' %}
+{% block body %}
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<!-- <script src="js/dist/jspdf.plugin.autotable.js"></script> -->
+<script src="{{url_for('static',filename='js/dist/jspdf.plugin.autotable.js')}}"></script>
+<div class="main">
+    <table class="table" id="patientdata">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="7" class="text-center">Patient Details</th>
+            </tr>
+            <tr>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Type of Room</th>
+                <th>Admit Date</th>
+                <th>Dishcarge Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{patient_data.pid}}</td>
+                <td>{{patient_data.pname}}</td>
+                <td>{{patient_data.age}}</td>
+                <td style="max-width: 100px;">
+                    <div style="max-height: 100px; overflow-x: hidden; overflow-y: auto;">
+                        {{patient_data.address}}
+                    </div>
+                </td>
+                <td>{{patient_data.bedtype}}</td>
+                <td>{{patient_data.admitdate}}</td>
+                <td>{{today}}</td>
+            </tr>
+        </tbody>
+        <tr>
+            <td colspan="7" class="text-center">
+                Days : {{bill_total[0]['days']}} , Room Charge : Rs.
+                {{bill_total[0]['bedtotal'] | currencyFormat}}
+            </td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <br />
+
+    {% if medicine_data %}
+    <div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+        <div class="col-md-10">
+    <table class="ui celled table" style="width: 100%;" id="medicinedata">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="4" class="text-center">Pharmacy Bills</th>
+            </tr>
+            <tr>
+                <th>Medicine Name</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Ammount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in medicine_data %}
+            <tr>
+                <td>{{data.medname}}</td>
+                <td>{{data.quantity}}</td>
+                <td>{{data.rate}}</td>
+                <td>{{data.amount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tr>
+            <td colspan="4" class="text-center">
+                Bill for Pharmacy : Rs. {{bill_total[1] | currencyFormat}}
+            </td>
+        </tr>
+    </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center text-danger">
+    <p style="font-size: larger;">No Medicines issued to this Patient were found in Pharmacy records!</p>
+</div>
+    {% endif %}
+
+    <br />
+    {% if test_data %}
+    <div class="row justify-content-center" style="margin-left: 50px; margin-right: 50px;">
+        <div class="col-md-10">
+    <table class="ui celled table" style="width: 100%;" id="testdata">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="2" class="text-center">Diagnostic Bills</th>
+            </tr>
+            <tr>
+                <th>Diagnostic Test Name</th>
+                <th>Ammount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in test_data %}
+            <tr>
+                <td>{{data.testname}}</td>
+                <td>{{data.charge}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tr>
+            <td colspan="3" class="text-center">
+                Bills for Diagnostics : Rs. {{bill_total[2] | currencyFormat}}
+            </td>
+        </tr>
+    </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center text-danger">
+    <p style="font-size: larger;">
+        No Diagnostics Tests for this Patient were found in Diagnostic records!
+    </p>
+
+</div>
+    {% endif %}
+
+    <br />
+    <hr />
+    <table class="table" id="grandtotal">
+        <tr>
+            <thead class="thead-dark">
+                <td>Grand Total :</td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> Rs. {{bill_total[3] | currencyFormat}}</td>
+                </tr>
+            </tbody>
+    </table>
+
+
+    <form action="/admin/billings" method="POST" onsubmit="return confirm('Confirm Patient Discharge?!')">
+        <input type="hidden" value="{{patient_data.pid}}" name="pid" />
+        <button type="submit" class="btn btn-primary" value="confirm_bills" name="submit">
+            Confirm Discharge!
+        </button>
+    </form>
+    <br>
+    <button id="btnprint" class="btn btn-primary" style="align-self:center">Print Bills</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#testdata").DataTable();
+        $("#medicinedata").DataTable();
+    });
+</script>
+
+<script>
+    $(function () {
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+
+        $('#btnprint').click(function () {
+
+            // var table = tableToJson($('#accountStatementListTable').get(0))
+            // var doc = new jsPDF('p','pt', 'a4', true);
+            var doc = new jsPDF();
+
+            $("#testdata").DataTable().destroy();
+            $("#medicinedata").DataTable().destroy();
+            doc.autoTable({
+                html: '#patientdata',
+                theme: 'striped',
+                
+            })
+
+            doc.autoTable({
+                html: '#medicinedata',
+                theme: 'striped',
+                startY: doc.lastAutoTable.finalY + 10,
+                
+            })
+            doc.autoTable({
+                html: '#testdata',
+                theme: 'striped',
+                startY: doc.lastAutoTable.finalY + 10,
+                
+            })
+            doc.autoTable({
+                html: '#grandtotal',
+                theme: 'striped',
+                startY: doc.lastAutoTable.finalY + 10,
+                
+            })
+            // doc.autoTable(res2.columns, res2.data, {
+            //     startY: doc.lastAutoTable.finalY + 50
+            // });
+
+            doc.save('hospital-bills.pdf');
+            $("#testdata").DataTable();
+            $("#medicinedata").DataTable();
+        });
+
+    });
+</script>
+{% endblock %}
